@@ -4,13 +4,15 @@
 ## Description
 This Simple Chat is designed as a straightforward, real-time chat interface using Flask for the backend and basic HTML/CSS/JavaScript for the frontend. It's created as a response to more complex solutions, offering a simple, effective baseline for building chat bots and Retrieval-Augmented Generation (RAG) systems. Its simplicity makes it an ideal starting point for customizations and further developments in chatbot technology.
 
+![Simple Chat](simple_chat.png)
+
 ## Installation
 To set up this project on your local machine, follow these steps:
 
 1. **Clone the Repository**
    ```bash
    git clone https://github.com/bbenko/simple-chat.git
-   cd chat-application
+   cd simple-chat
    ```
 
 2. **Install Dependencies**
@@ -23,10 +25,10 @@ To set up this project on your local machine, follow these steps:
    ```bash
    python app.py
    ```
-   This will start the Flask server on `http://localhost:5000`.
+   This will start the Flask server on `http://127.0.0.1:5000`.
 
 ## Usage
-After starting the server, navigate to `http://localhost:5000` in your web browser to use the chat application.
+After starting the server, navigate to `http://127.0.0.1:5000` in your web browser to use the chat application.
 
 1. Type your message in the input box.
 2. Press Enter or click the Send button to send the message.
