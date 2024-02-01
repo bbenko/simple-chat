@@ -27,12 +27,29 @@ To set up this project on your local machine, follow these steps:
    ```
    This will start the Flask server on `http://127.0.0.1:5000`.
 
+
 ## Usage
 After starting the server, navigate to `http://127.0.0.1:5000` in your web browser to use the chat application.
 
 1. Type your message in the input box.
 2. Press Enter or click the Send button to send the message.
 3. View the response from the server in the chat interface.
+
+
+## Testing
+To run the tests for this project, follow these steps:
+
+1. **Install Testing Dependencies**
+   ```bash
+   pip install selenium
+   ```
+
+2. **Run the Tests**
+   ```bash
+   python test.py
+   ```
+   This will execute all the tests and display the results.
+
 
 ## Contributing
 Contributions to this project are welcome. Please follow these steps to contribute:
