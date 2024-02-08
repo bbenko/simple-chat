@@ -12,16 +12,15 @@
         <div class="chat-header">
             <h2>Simple Chat</h2>
         </div>
-        <div class="chat-box" id="chatOutput"></div>
+        <div class="chat-box" id="chatBox"></div>
         <div class="message-input">
             <input type="text" id="messageInput" placeholder="Type a message...">
-            <button id="sendButton" onclick="sendMessage()">Send</button>
+            <button id="sendButton" onclick="sendMessage()">&#x21EA;</button>
             <div id="spinner" class="spinner" style="display:none;">
                 <img src="{{ url_for('static', filename='spinner.gif') }}" alt="Loading...">
             </div>
         </div>
-            </div>
-
+    </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

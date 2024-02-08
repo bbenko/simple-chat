@@ -46,10 +46,10 @@ class TestApp(unittest.TestCase):
         message_input.send_keys(test_message)
         message_input.send_keys(Keys.RETURN)
 
-        # a new p in #chatOuptut should appear with a class "message" and the text from test_message
+        # a new p in #chatBox should appear with a class "message" and the text from test_message
         try:
             WebDriverWait(self.driver, 10).until(
-               EC.presence_of_element_located((By.XPATH, f"//div[@id='chatOutput']//p[contains(@class, 'message') and contains(text(), '{test_message}')]"))
+               EC.presence_of_element_located((By.XPATH, f"//div[@id='chatBox']//p[contains(@class, 'message') and contains(text(), '{test_message}')]"))
             )
         except TimeoutException:
             self.fail("There is no message!")
@@ -71,7 +71,7 @@ class TestApp(unittest.TestCase):
         # a new p in #chatOuptut with a class "server-response" should appear
         try:
             WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, f"//div[@id='chatOutput']//p[contains(@class, 'server-response') and contains(text(), '{test_message}')]"))
+                EC.presence_of_element_located((By.XPATH, f"//div[@id='chatBox']//p[contains(@class, 'server-response') and contains(text(), '{test_message}')]"))
             )
         except TimeoutException:
             self.fail("Loading took too much time!")
