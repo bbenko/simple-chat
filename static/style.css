@@ -34,6 +34,10 @@ body, html {
     font-size: 24px;
 }
 
+.chat-logo {
+    max-height: 100px; /* Adjust the size as needed */
+}
+
 /* Chat Box */
 .chat-box {
     padding: 20px;
@@ -48,7 +52,7 @@ body, html {
     border-radius: 4px;
     display: block;
     max-width: 80%;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .user-message {
@@ -80,6 +84,8 @@ body, html {
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-right: 10px;
+    font-size: 18px;
+    -webkit-text-size-adjust: 100%;
 }
 
 .message-input button {
@@ -94,7 +100,7 @@ body, html {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 18px;
     padding: 0;
 }
 
