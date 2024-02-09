@@ -49,10 +49,10 @@ function sendMessage() {
 
 function appendMessage(text, className) {
     const chatBox = document.getElementById("chatBox");
-    const messageElement = document.createElement("p");
-    messageElement.textContent = text;
+    const messageElement = document.createElement("div");
+    const html = marked.parse(text); // Convert markdown to HTML
+    messageElement.innerHTML = html;
     messageElement.className = className;
     chatBox.appendChild(messageElement);
-
     chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the latest message
 }

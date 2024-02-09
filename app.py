@@ -1,7 +1,14 @@
-import time, os
+import logging
 from flask import Flask, request, jsonify, render_template
+from config_loader import load_configuration  # Import the configuration loader
+from agent_loader import load_agent  # Import the agent loader
+
+# Logging configuration
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
 app = Flask(__name__)
+app.simple_chat_config = load_configuration()  # Load configuration
+app.simple_chat_agent = load_agent(app.simple_chat_config)  # Load agent
 
 @app.route('/')
 def index():
@@ -10,16 +17,14 @@ def index():
 @app.route('/chat', methods=['POST'])
 def chat():
     message = request.json.get('message')
-    response = get_response(message)
+    if app.simple_chat_config['logging_enabled']:
+        logging.info(f"Received message: {message}")
+
+    response = app.simple_chat_agent.respond(message)
+    if app.simple_chat_config['logging_enabled']:
+        logging.info(f"Responded with: {response}")
+
     return jsonify({"response": response})
 
-
-def get_response(message):
-    time.sleep(1)  # make it look like the server is doing something
-    response = f"Server received: {message}" # just echo the message back
-    return response
-
 if __name__ == '__main__':
-    # Bind to PORT if defined, otherwise default to 5000.
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='127.0.0.1', port=port)
+    app.run(host='127.0.0.1', port=app.simple_chat_config['port'], debug=app.simple_chat_config['debug'])

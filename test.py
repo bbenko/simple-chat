@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
+from agent_loader import load_agent
 from app import app
 
 
@@ -20,7 +21,17 @@ class TestApp(unittest.TestCase):
         # Start Flask app in a separate process
         cls.process = Process(target=run_app)
         cls.process.start()
-        cls.driver = webdriver.Chrome() 
+        cls.driver = webdriver.Chrome()
+
+    def test_default_echo__agent(self):
+        # test defult Echo agent is used
+        from agents.echo_agent import Agent
+        self.assertEqual(app.simple_chat_agent.__class__, Agent)
+
+    def test_load_agent_import_error(self):
+        config = {'agent_name': 'Test', 'logging_enabled': False}
+        with self.assertRaises(ImportError):
+            load_agent(config)
 
     def test_chat_post(self):
         self.driver.get('http://127.0.0.1:5000')
@@ -46,13 +57,13 @@ class TestApp(unittest.TestCase):
         message_input.send_keys(test_message)
         message_input.send_keys(Keys.RETURN)
 
-        # a new p in #chatBox should appear with a class "message" and the text from test_message
+        # a new div in #chatBox should appear with a class "message" and the text from test_message
         try:
             WebDriverWait(self.driver, 10).until(
-               EC.presence_of_element_located((By.XPATH, f"//div[@id='chatBox']//p[contains(@class, 'message') and contains(text(), '{test_message}')]"))
+               EC.presence_of_element_located((By.XPATH, f"//div[@id='chatBox']//div[contains(@class, 'user-message')]//p[contains(text(), '{test_message}')]"))
             )
         except TimeoutException:
-            self.fail("There is no message!")
+            self.fail("There is no user message!")
 
         # Check if the spinner gif is visible
         self.assertTrue(spinner.is_displayed())
@@ -68,19 +79,20 @@ class TestApp(unittest.TestCase):
         except TimeoutException:
             self.fail("Spinner took too much time to disappear!")
         
-        # a new p in #chatOuptut with a class "server-response" should appear
+        # a new div in #chatOuptut with a class "server-response" should appear
         try:
             WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, f"//div[@id='chatBox']//p[contains(@class, 'server-response') and contains(text(), '{test_message}')]"))
+                EC.presence_of_element_located((By.XPATH, f"//div[@id='chatBox']//div[contains(@class, 'server-response')]//p[contains(text(), '{test_message}')]"))
             )
         except TimeoutException:
             self.fail("Loading took too much time!")
-
+        
     @classmethod
     def tearDownClass(cls):
         cls.driver.quit()  # Close the browser
         cls.process.terminate()  # Terminate Flask app process
         cls.process.join()
+
 
 if __name__ == "__main__":
     unittest.main()

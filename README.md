@@ -5,6 +5,8 @@
 This Simple Chat is designed as a straightforward, real-time chat interface using Flask for the backend and basic HTML/CSS/JavaScript for the frontend. It's created as a response to more complex solutions, offering a simple, effective baseline for building chat bots and Retrieval-Augmented Generation (RAG) systems. Its simplicity makes it an ideal starting point for customizations and further developments in chatbot technology.
 
 ![Simple Chat](simple_chat.png)
+Example with the Mixtral LLM backend.
+
 
 ## Installation
 To set up this project on your local machine, follow these steps:
@@ -34,6 +36,24 @@ After starting the server, navigate to `http://127.0.0.1:5000` in your web brows
 1. Type your message in the input box.
 2. Press Enter or click the Send button to send the message.
 3. View the response from the server in the chat interface.
+
+## Chat Agents
+By default, the `echo` agent is loaded which just repeats the message from the client. It also has a sample code as an example to create different agents.
+
+### LLM agent
+This agent talks to a cloud LLM (like ChatGPT) and sends replies to users. There is no chat history support. It works with OpenAI and other platforms that are compatible with OpenAI's API, like Together AI. Find all paremeters in [llm_agent.py](agents/llm_agent.py).
+
+To use Mixtral model from Together AI, set up these enviroment variables:
+```bash
+export SIMPLE_CHAT_AGENT=llm
+export LLM_API_KEY=<your Together AI>
+export LLM_MODEL=mistralai/Mixtral-8x7B-Instruct-v0.1
+```
+
+To use OpenAI, also set
+```bash
+export LLM_BASE_URL=https://api.openai.com/v1
+```
 
 
 ## Testing
